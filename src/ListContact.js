@@ -10,6 +10,10 @@ class ListContact extends React.Component{
             query : query.trim()
         }))
     }
+
+    clearQuery = () => {
+        this.handleQuery('')
+    }
     
     render(){
         const {contacts , DeleteContact } = this.props
@@ -26,6 +30,9 @@ class ListContact extends React.Component{
                     className="search-contacts" 
                     placeholder="Search contact"/>
                 </div>
+                {trimContact.length !== contacts.length && (
+                    <div className="showing-contacts"><button onClick={this.clearQuery}>See All</button></div>
+                )}
                  <ol>
                 {
                     trimContact.map((contact) => (

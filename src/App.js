@@ -1,32 +1,23 @@
 import React from 'react';
 import './App.css';
-import ListContact from './ListContact'
+import ListContact from './ListContact';
+import { Route } from 'react-router-dom';
+import * as ContactsAPI from './utils/ContactsAPI'
 
 
 class App extends React.Component{
   state = {
-    contacts : [
-      {
-        "id": "karen",
-        "name": "Karen Isgrigg",
-        "handle": "karen_isgrigg",
-        "avatarURL": "http://localhost:5001/karen.jpg"
-      },
-      {
-        "id": "richard",
-        "name": "Richard Kalehoff",
-        "handle": "richardkalehoff",
-        "avatarURL": "http://localhost:5001/richard.jpg"
-      },
-      {
-        "id": "tyler",
-        "name": "Tyler McGinnis",
-        "handle": "tylermcginnis",
-        "avatarURL": "http://localhost:5001/tyler.jpg"
-      }
-     ]
+    contacts : []
   }
 
+  componentDidMount(){
+    ContactsAPI.getAll()
+    .then((contacts) => {
+      this.setState(() => ({
+        contacts
+      }))
+    })
+  }
   DeleteContact  = (removeby) => {
     this.setState((currState) => ({
       contacts : currState.contacts.filter((c) => {
@@ -37,6 +28,7 @@ class App extends React.Component{
   render() {
       return (
          <div>
+          
           <ListContact contacts={this.state.contacts}
           DeleteContact={this.DeleteContact}
           />

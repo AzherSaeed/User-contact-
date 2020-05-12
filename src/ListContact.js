@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom'
 
 class ListContact extends React.Component{
     state = {
@@ -16,7 +17,7 @@ class ListContact extends React.Component{
     }
     
     render(){
-        const {contacts , DeleteContact } = this.props
+        const {contacts , DeleteContact} = this.props
         const { query } = this.state
 
         const trimContact = query === '' ? contacts : contacts.filter((c) => (
@@ -25,11 +26,19 @@ class ListContact extends React.Component{
         return(
             <div className="list-contacts">
                 <div className="list-contacts-top">
+
+
                     <input type="text" value={query} 
                     onChange={(event) => this.handleQuery(event.target.value)}
                     className="search-contacts" 
                     placeholder="Search contact"/>
+
+                    <Link to="/create" className="add-contact">Add Contact</Link>
+
                 </div>
+
+
+
                 {trimContact.length !== contacts.length && (
                     <div className="showing-contacts"><button onClick={this.clearQuery}>See All</button></div>
                 )}
